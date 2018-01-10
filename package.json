@@ -1,0 +1,31 @@
+{
+  "name": "liri-node-bot",
+  "version": "1.0.0",
+  "description": "liri is a node app that will search for information from twitter, spottify and OMDB",
+  "main": "liri.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rmccracken/liri-node-bot.git"
+  },
+  "keywords": [
+    "liri",
+    "twitter",
+    "spotify",
+    "omdb"
+  ],
+  "author": "Rob McCracken",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rmccracken/liri-node-bot/issues"
+  },
+  "homepage": "https://github.com/rmccracken/liri-node-bot#readme",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "node-spotify-api": "^1.0.7",
+    "require": "^2.4.20",
+    "twitter": "^1.7.1"
+  }
+}
