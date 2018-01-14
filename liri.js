@@ -1,45 +1,47 @@
-var apiKeysObject = require("dotenv").config();
+let apiKeysObject = require("dotenv").config();
+let twitter = require("twitter");
+let spotify = require("node-spotify-api");
+let request = require('request');
+let inquirer = require("inquirer");
+let fs = require("fs");
 
-// var spotify = new Spotify(keys.spotify);
-// var client = new Twitter(keys.twitter);
-var request = require('request');
-var fs = require("fs");
-
-var argument = process.argv;
-var inputTwo = process.argv[3];
-
-
-var nodeArgv = process.argv;
-var command = process.argv[2];
-
-var inputOne = "";
-//allows for multi-word titles to be searched
-for (var i = 3; i < argument.length; i++) {
-    if (i > 3 && i < argument.length) {
-        x = x + "+" + argument[i];
-    } else {
-        inputOne = inputOne + argument[i];
+startApp();
+    
+let startApp = () => {
+    inquirer.prompt([
+    {
+        type: "list",
+        name: "app",
+        message: "Make a selection",
+        choices: [
+            "my-tweets",
+            'spotify-this-song',
+            'movie-info',
+            'do-what-it-says',
+            'exit-app'
+        ]
     }
-}
-
-switch (inputOne) {
-    case "my-tweets":
-        TweetLookup();
-        break;
-
-    case "spotify-this-song":
-        songLookup();
-        break;
-
-    case "movie-this":
-        movieLookup();
-        break;
-
-    case "do-what-it-says":
-        pullTextDoc();
-        break;
-
-    default:
-        console.log('Please pick one: my-tweets, spotify-this-song, movie-this, do-what-it-says');
-        break;
+    ]).then((results) => {
+        if (results.app === "my-tweets") {
+            TweetLookup();
+        } else if (results.app === "spotify-this-song"){
+            inquirer.prompt([
+            {
+                type: "input",
+                name: "song",
+                message: "Give me a Song title."
+            }
+            ]).then((results) => {
+                let song = results.song;
+                songLookup(song);
+            })
+            songLookup();
+        } else if (results.app === "movie-info"){
+            movieLookup();
+        } else if (results.app === "do-what-it-says"){
+            pullTextDoc();
+        } else {
+            console.log("Have a good day!");
+        }
+    })
 }
