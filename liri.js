@@ -7,7 +7,7 @@ let fs = require("fs");
 
 startApp();
     
-let startApp = () => {
+function startApp() {
     inquirer.prompt([
     {
         type: "list",
@@ -33,15 +33,69 @@ let startApp = () => {
             }
             ]).then((results) => {
                 let song = results.song;
+                if (song === "") {
+                    song = "Mr. Nobody";
+                    }   
                 songLookup(song);
-            })
-            songLookup();
+            });
         } else if (results.app === "movie-info"){
-            movieLookup();
+            inquirer.prompt([
+            {
+                type: "input",
+                name: "movie",
+                message: "Give me a the name of a movie."
+            }
+            ]).then((results) => {
+                let movie = results.movie;
+                    if (movie === "") {
+                    movie = "Mr. Nobody";
+                    }   
+                movieLookup();
+            });
+            
         } else if (results.app === "do-what-it-says"){
             pullTextDoc();
         } else {
             console.log("Have a good day!");
         }
     })
+}
+
+let TweetLookup = () => {
+    let client = new twitter(apiKeysObject.twitter);
+    // let params = {screen_name: "mccrackenGoose"};
+
+    client.get("statuses/user_timeline", (error, tweets, response) => {
+        if (!error){
+            console.log(tweets);
+        }
+        for (var i = 0; i < tweets.statuses.length; i++) {
+            console.log(tweets.statuses[i].created_at.substring(0, 19) + tweets.statuses[i].text);
+        }
+    });
+    console.log("Display tweets here");
+}
+
+let songLookup = () => {
+    console.log("Display songs Here");
+}
+let movieLookup = () => {
+    console.log("Display Movies Here");
+}
+
+let pullTextDoc = () => {
+    fs.readFile("random.txt", "utf8", function(error, data) {
+
+  if (error) {
+    return console.log(error);
+  }
+    
+  var dataArr = data.split(",");
+  console.log(dataArr);
+    if (dataArr[0] === "songInfo"){
+        songInfo(dataArr[1]);
+    }
+
+});
+
 }
