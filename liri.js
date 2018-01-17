@@ -1,4 +1,5 @@
-let apiKeysObject = require("dotenv").config();
+let dotenv = require("dotenv").config();
+let apiKeysObject = require("./keys.js")
 let twitter = require("twitter");
 let spotify = require("node-spotify-api");
 let request = require('request');
@@ -63,7 +64,7 @@ function startApp() {
 
 let TweetLookup = () => {
     let client = new twitter(apiKeysObject.twitter);
-    // let params = {screen_name: "mccrackenGoose"};
+    let params = {screen_name: "mccrackenGoose", count: 20};
 
     client.get("statuses/user_timeline", (error, tweets, response) => {
         if (!error){
