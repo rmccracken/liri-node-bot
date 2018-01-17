@@ -68,17 +68,32 @@ let TweetLookup = () => {
 
     client.get("statuses/user_timeline", (error, tweets, response) => {
         if (!error){
-            console.log(tweets);
         }
-        for (var i = 0; i < tweets.statuses.length; i++) {
-            console.log(tweets.statuses[i].created_at.substring(0, 19) + tweets.statuses[i].text);
+        for (var i = 0; i < 20 ; i++) {
+            console.log("------mcccrackenGoose Past Tweets " + [i + 1] + " -----")
+            console.log(tweets[i].text);
+            console.log(tweets[i].created_at);
         }
     });
-    console.log("Display tweets here");
+
 }
 
-let songLookup = () => {
-    console.log("Display songs Here");
+let songLookup = (song) => {
+    let rockItOut = new spotify(apiKeysObject.spotify);
+    rockItOut.search({ type: 'track', query: song }, (err, data) => {
+  
+        if (err) {
+         return console.log('Error occurred: ' + err);
+        }
+            let track = data.tracks.items[0].name;
+            let artist = data.tracks.items[0].album.artists[0].name;
+            let album = data.tracks.items[0].album.name;
+            let songURL = data.tracks.items[0].album.artists[0].external_urls.spotify;
+            
+            console.log("You selected: " + song);
+            console.log("----------------------")
+            console.log("Artist: " + artist + "\nAlbum: " + album + "\nListen here: " + songURL);
+});
 }
 let movieLookup = () => {
     console.log("Display Movies Here");
