@@ -51,7 +51,7 @@ function startApp() {
                     if (movie === "") {
                     movie = "Mr. Nobody";
                     }   
-                movieLookup();
+                movieLookup(movie);
             });
             
         } else if (results.app === "do-what-it-says"){
@@ -63,6 +63,7 @@ function startApp() {
 }
 
 let TweetLookup = () => {
+    writeResults(" User searched tweets\n");
     let client = new twitter(apiKeysObject.twitter);
     let params = {screen_name: "mccrackenGoose", count: 20};
 
@@ -79,6 +80,7 @@ let TweetLookup = () => {
 }
 
 let songLookup = (song) => {
+    writeResults(" User searched song:" + song + "\n");
     let rockItOut = new spotify(apiKeysObject.spotify);
     rockItOut.search({ type: 'track', query: song }, (err, data) => {
   
@@ -93,16 +95,37 @@ let songLookup = (song) => {
             console.log("You selected: " + song);
             console.log("----------------------")
             console.log("Artist: " + artist + "\nAlbum: " + album + "\nListen here: " + songURL);
-});
+    });
 }
-let movieLookup = () => {
-    console.log("Display Movies Here");
+let movieLookup = (movie) => {
+    writeResults(" User searched movie: " + movie + "\n");
+    let queryUrl = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy"
+
+    request(queryUrl, function(error, response, body) {
+
+      if (error) {
+        console.log('Error occurred: ' + error);
+      }
+      else{
+        console.log("You selected: " + JSON.parse(body).Title);
+        console.log("Release Year: " + JSON.parse(body).Year);
+        console.log("Rated: " + JSON.parse(body).Rated);
+        console.log("Rotten Tomatoes Score: " + JSON.parse(body).Ratings[1].Value);
+        console.log("Country of Origin : " + JSON.parse(body).Country);
+        console.log("Language: " + JSON.parse(body).Language);
+        console.log("Plot: " + JSON.parse(body).Plot);
+        console.log("Staring: " + JSON.parse(body).Actors);
+
+      }
+    });
+
 }
 
 let pullTextDoc = () => {
+        writeResults(" User picked the default search.\n");
     fs.readFile("random.txt", "utf8", function(error, data) {
 
-  if (error) {
+    if (error) {
     return console.log(error);
   }
     
@@ -111,8 +134,16 @@ let pullTextDoc = () => {
     if (dataArr[0] === "spotify-this-song"){
         songLookup(dataArr[1]);
     }
-    else 
-        console.log("what is this")
-});
+    });
 
 }
+
+let writeResults = (results) => {
+    console.log(results);
+    var now = new Date();
+    fs.appendFile('log.txt',  now + results + "\n ", (err, data) => {
+        if (err) {
+            return console.log(err);
+        }
+    });
+}   
