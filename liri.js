@@ -35,7 +35,7 @@ function startApp() {
             ]).then((results) => {
                 let song = results.song;
                 if (song === "") {
-                    song = "Mr. Nobody";
+                    song = "I don't care";
                     }   
                 songLookup(song);
             });
@@ -107,11 +107,12 @@ let pullTextDoc = () => {
   }
     
   var dataArr = data.split(",");
-  console.log(dataArr);
-    if (dataArr[0] === "songInfo"){
-        songInfo(dataArr[1]);
+  // console.log(dataArr);
+    if (dataArr[0] === "spotify-this-song"){
+        songLookup(dataArr[1]);
     }
-
+    else 
+        console.log("what is this")
 });
 
 }
