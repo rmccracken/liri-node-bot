@@ -26,7 +26,7 @@ function startApp() {
     }
     ]).then((results) => {
         if (results.app === "my-tweets") {
-            TweetLookup();
+            tweetLookup();
         } else if (results.app === "spotify-this-song"){
             inquirer.prompt([
             {
@@ -65,7 +65,7 @@ function startApp() {
     })
 }
 // searhces twitter for userinfo. you could also switch so the user could input the twitter username as well via the OMDB and Spotify method that is on here.
-let TweetLookup = () => {
+let tweetLookup = () => {
     writeResults(" User searched tweets\r\n");
     let client = new twitter(apiKeysObject.twitter);
     let params = {screen_name: "mccrackenGoose", count: 20};
@@ -79,6 +79,7 @@ let TweetLookup = () => {
             console.log(tweets[i].created_at);
         }
     });
+    setTimeout(() => {startApp()}, 1000);
 
 }
 // Searches Spotify for song info
@@ -100,6 +101,8 @@ let songLookup = (song) => {
             console.log("Album: " + album);
             console.log("Listen here: " + songURL);
     });
+    setTimeout(() => {startApp()}, 1000);
+
 }
 // searches OMDB for movie info
 let movieLookup = (movie) => {
@@ -125,7 +128,7 @@ let movieLookup = (movie) => {
 
       }
     });
-
+    setTimeout(() => {startApp()}, 1000);
 }
 // pulls optin and title from text doc
 let pullTextDoc = () => {
