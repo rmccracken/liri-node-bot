@@ -79,7 +79,9 @@ let tweetLookup = () => {
             console.log(tweets[i].created_at);
         }
     });
-    setTimeout(() => {startApp()}, 1000);
+    setTimeout(() => {
+        startApp()
+    }, 1000);
 
 }
 // Searches Spotify for song info
@@ -101,7 +103,9 @@ let songLookup = (song) => {
             console.log("Album: " + album);
             console.log("Listen here: " + songURL);
     });
-    setTimeout(() => {startApp()}, 1000);
+    setTimeout(() => {
+        startApp()
+    }, 1000);
 
 }
 // searches OMDB for movie info
@@ -128,7 +132,9 @@ let movieLookup = (movie) => {
 
       }
     });
-    setTimeout(() => {startApp()}, 1000);
+    setTimeout(() => {
+        startApp()
+    }, 1000);
 }
 // pulls optin and title from text doc
 let pullTextDoc = () => {
@@ -150,7 +156,7 @@ let pullTextDoc = () => {
 let writeResults = (results) => {
     console.log(results);
     let now = new Date();
-    fs.appendFile('log.txt',now + results , (err, data) => {
+    fs.appendFile('log.txt', now + results , (err, data) => {
         if (err) {
             return console.log(err);
         }
