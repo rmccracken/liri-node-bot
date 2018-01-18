@@ -14,3 +14,13 @@ Thu Jan 18 2018 13:01:14 GMT-0500 (Eastern Standard Time) User searched movie: s
 Thu Jan 18 2018 13:01:40 GMT-0500 (Eastern Standard Time) User picked the default search.
 Thu Jan 18 2018 13:01:40 GMT-0500 (Eastern Standard Time) User searched song: "I Want it That Way"
 Thu Jan 18 2018 13:01:43 GMT-0500 (Eastern Standard Time)User exited program
+Thu Jan 18 2018 13:05:18 GMT-0500 (Eastern Standard Time) User searched tweets
+Thu Jan 18 2018 13:06:36 GMT-0500 (Eastern Standard Time) User searched song: pyt
+Thu Jan 18 2018 13:10:01 GMT-0500 (Eastern Standard Time) User searched movie: just go with it
+Thu Jan 18 2018 13:10:39 GMT-0500 (Eastern Standard Time) User picked the default search.
+Thu Jan 18 2018 13:10:39 GMT-0500 (Eastern Standard Time) User searched song: "I Want it That Way"
+Thu Jan 18 2018 13:10:47 GMT-0500 (Eastern Standard Time) User searched song: I don't care
+Thu Jan 18 2018 13:11:03 GMT-0500 (Eastern Standard Time) User searched movie: Mr. Nobody
+Thu Jan 18 2018 13:11:09 GMT-0500 (Eastern Standard Time) User picked the default search.
+Thu Jan 18 2018 13:11:09 GMT-0500 (Eastern Standard Time) User searched song: "I Want it That Way"
+Thu Jan 18 2018 13:11:13 GMT-0500 (Eastern Standard Time)User exited program

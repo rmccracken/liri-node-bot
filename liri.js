@@ -19,7 +19,7 @@ function startApp() {
         choices: [
             "my-tweets",
             'spotify-this-song',
-            'movie-info',
+            'get-movie-info',
             'do-what-it-says',
             'exit-app'
         ]
@@ -41,7 +41,7 @@ function startApp() {
                     }   
                 songLookup(song);
             });
-        } else if (results.app === "movie-info"){
+        } else if (results.app === "get-movie-info"){
             inquirer.prompt([
             {
                 type: "input",
