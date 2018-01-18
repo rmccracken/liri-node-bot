@@ -1,4 +1,6 @@
+// .env file setup with git ignore so we can store our API key's
 let dotenv = require("dotenv").config();
+// calls info from keys.js
 let apiKeysObject = require("./keys.js")
 let twitter = require("twitter");
 let spotify = require("node-spotify-api");
@@ -7,7 +9,7 @@ let inquirer = require("inquirer");
 let fs = require("fs");
 
 startApp();
-    
+    //  I want to eventually come back and add recurrsion to this which is the point of the "exit-app"
 function startApp() {
     inquirer.prompt([
     {
@@ -58,12 +60,13 @@ function startApp() {
             pullTextDoc();
         } else {
             console.log("Have a good day!");
+            writeResults("User exited program\r\n");
         }
     })
 }
-
+// searhces twitter for userinfo. you could also switch so the user could input the twitter username as well via the OMDB and Spotify method that is on here.
 let TweetLookup = () => {
-    writeResults(" User searched tweets\n");
+    writeResults(" User searched tweets\r\n");
     let client = new twitter(apiKeysObject.twitter);
     let params = {screen_name: "mccrackenGoose", count: 20};
 
@@ -78,9 +81,9 @@ let TweetLookup = () => {
     });
 
 }
-
+// Searches Spotify for song info
 let songLookup = (song) => {
-    writeResults(" User searched song:" + song + "\n");
+    writeResults(" User searched song: " + song + "\r\n");
     let rockItOut = new spotify(apiKeysObject.spotify);
     rockItOut.search({ type: 'track', query: song }, (err, data) => {
   
@@ -92,13 +95,15 @@ let songLookup = (song) => {
             let album = data.tracks.items[0].album.name;
             let songURL = data.tracks.items[0].album.artists[0].external_urls.spotify;
             
-            console.log("You selected: " + song);
             console.log("----------------------")
-            console.log("Artist: " + artist + "\nAlbum: " + album + "\nListen here: " + songURL);
+            console.log("Artist: " + artist);
+            console.log("Album: " + album);
+            console.log("Listen here: " + songURL);
     });
 }
+// searches OMDB for movie info
 let movieLookup = (movie) => {
-    writeResults(" User searched movie: " + movie + "\n");
+    writeResults(" User searched movie: " + movie + "\r\n");
     let queryUrl = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy"
 
     request(queryUrl, function(error, response, body) {
@@ -106,8 +111,10 @@ let movieLookup = (movie) => {
       if (error) {
         console.log('Error occurred: ' + error);
       }
-      else{
-        console.log("You selected: " + JSON.parse(body).Title);
+      else if (JSON.parse(body).Title === undefined){
+        console.log("That is not a movie");
+      }
+        else{
         console.log("Release Year: " + JSON.parse(body).Year);
         console.log("Rated: " + JSON.parse(body).Rated);
         console.log("Rotten Tomatoes Score: " + JSON.parse(body).Ratings[1].Value);
@@ -120,9 +127,9 @@ let movieLookup = (movie) => {
     });
 
 }
-
+// pulls optin and title from text doc
 let pullTextDoc = () => {
-        writeResults(" User picked the default search.\n");
+        writeResults(" User picked the default search.\r\n");
     fs.readFile("random.txt", "utf8", function(error, data) {
 
     if (error) {
@@ -130,18 +137,17 @@ let pullTextDoc = () => {
   }
     
   var dataArr = data.split(",");
-  // console.log(dataArr);
+
     if (dataArr[0] === "spotify-this-song"){
         songLookup(dataArr[1]);
     }
     });
-
 }
 
 let writeResults = (results) => {
     console.log(results);
-    var now = new Date();
-    fs.appendFile('log.txt',  now + results + "\n ", (err, data) => {
+    let now = new Date();
+    fs.appendFile('log.txt',now + results , (err, data) => {
         if (err) {
             return console.log(err);
         }
